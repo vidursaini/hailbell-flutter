@@ -19,7 +19,7 @@ dependencies:
   hailbell:
     git:
       url: https://github.com/vidursaini/hailbell-flutter
-      ref: 0.1.0
+      ref: 0.1.1
 ```
 
 Pin `ref` to a release tag from [the releases list](https://github.com/vidursaini/hailbell-flutter/tags), and raise it to update.
@@ -241,7 +241,7 @@ If **Send test notification** in the customer panel says the device has no token
 You need this only for Hailbell's campaign pushes: images, buttons, badge increments and delivery receipts. Chat replies work without it.
 
 1. In Xcode, choose **File › New › Target › Notification Service Extension**. Name it `NotificationService` and set its **Minimum Deployments** to iOS 16.
-2. Choose **File › Add Package Dependencies…**, enter `https://github.com/vidursaini/hailbell-ios`, choose **Up to Next Major Version** from `1.1.0`, and add the **HailbellNotificationService** library to the extension only, never to Runner. This works in CocoaPods projects too.
+2. Choose **File › Add Package Dependencies…**, enter `https://github.com/vidursaini/hailbell-ios`, choose **Up to Next Major Version** from `1.1.1`, and add the **HailbellNotificationService** library to the extension only, never to Runner. This works in CocoaPods projects too.
 3. Replace the extension's class:
 
    ```swift

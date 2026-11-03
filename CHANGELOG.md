@@ -1,3 +1,7 @@
+## 0.1.1
+
+- iOS: builds with Xcode 27.2 (Swift 6.4). The Swift SDK read the device model off the main actor, which the new compiler rejects.
+
 ## 0.1.0
 
 - First release. Wraps the Hailbell iOS (Swift) and Android (Kotlin and Compose) SDKs.

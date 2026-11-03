@@ -67,7 +67,7 @@ dependencies:
   hailbell:
     git:
       url: https://github.com/vidursaini/hailbell-flutter
-      ref: 0.1.0
+      ref: 0.1.1
 ```
 
 ## How it's built
