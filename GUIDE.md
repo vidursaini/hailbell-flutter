@@ -6,11 +6,15 @@ The API reference is in [README.md](README.md). The dashboard, Discord, Telegram
 
 ## 1. Create the app in the dashboard
 
-1. In app.hailbell.com, go to **Settings › Apps** and choose **New app**. Add an **iOS** and an **Android** platform. Each platform has its own **App ID** (`app_…`), and the Flutter app passes the one for the platform it runs on. App IDs are public and live in code.
-2. iOS: enter the **Bundle ID (for push)**.
-3. Android: set the app's **Firebase project** under its push settings. Hailbell sends Android replies through FCM with that project, and checks Firebase ID tokens against it (step 5).
-4. Under **Chat design**, set the accent for light and dark mode and upload the team photo. Both platforms use it.
-5. For **Review requests**, add the App Store ID and the Play package name.
+1. **Sign up** at [app.hailbell.com](https://app.hailbell.com/?signup=1) with **Continue with Google** or an emailed sign-in link. The first sign-in makes an account with a 14 day free trial, no card needed, and the first-run setup creates your first app from an App Store search.
+2. Give the app an **iOS** and an **Android** platform: on the app's page in **Settings**, use **Add iOS** or **Add Android** under **Platforms**. Each platform has its own **App ID** (`app_…`), and your app passes the one for the platform it runs on. App IDs are public, so they live in code. Set the iOS platform's **Bundle ID (for push)** under **Edit**.
+3. Upload your push keys in **Settings › Push keys**:
+   - **iOS:** in Apple Developer, **Certificates, Identifiers & Profiles › Keys**, make a key with **Apple Push Notifications service (APNs)** on, download the `.p8` file, and upload it with its **Key ID** and your **Team ID**. One key covers every app in that Apple team.
+   - **Android:** in the Firebase console, **Project settings › Service accounts › Generate new private key**, and upload the JSON file. One file per Firebase project.
+
+   Hailbell checks each key with Apple or Google, stores it encrypted and never shows it again.
+4. In **Push › Setup**, enter the Android app's **Firebase project ID** (from `google-services.json`) and press **Save**. Both cards should say **Ready**. Hailbell also checks Firebase ID tokens against that project (signed-in users, below).
+5. Optional: **Chat design** (accent for light and dark, title, team photo), **Reviews** (App Store ID and Play package name), **Offers**, Discord or Telegram, and AI replies.
 
 ## 2. Add the package
 
@@ -19,7 +23,7 @@ dependencies:
   hailbell:
     git:
       url: https://github.com/vidursaini/hailbell-flutter
-      ref: 0.1.1
+      ref: 1.0.0
 ```
 
 Pin `ref` to a release tag from [the releases list](https://github.com/vidursaini/hailbell-flutter/tags), and raise it to update.
