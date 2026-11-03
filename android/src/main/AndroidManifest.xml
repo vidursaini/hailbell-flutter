@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  The native SDK's manifest (sdk/android/hailbell/src/main/AndroidManifest.xml), except that a tapped
+  chat reply goes to the plugin's HailbellOpenChatActivity, which waits for Dart's configure and
+  identify when the tap starts the app. HailbellInitProvider configures the SDK at process start.
+  Keep the activities here in step with the native manifest.
+-->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+
+    <application>
+        <activity
+            android:name="com.hailbell.ChatActivity"
+            android:exported="false"
+            android:theme="@style/Theme.Hailbell.Chat"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name="com.hailbell.PushOpenActivity"
+            android:excludeFromRecents="true"
+            android:exported="false"
+            android:noHistory="true"
+            android:taskAffinity=""
+            android:theme="@android:style/Theme.Translucent.NoTitleBar">
+            <!-- Campaign pushes carry this click action, so a tap is counted and opens the link. -->
+            <intent-filter>
+                <action android:name="HAILBELL_OPEN_PUSH" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name="com.hailbell.flutter.HailbellOpenChatActivity"
+            android:excludeFromRecents="true"
+            android:exported="false"
+            android:noHistory="true"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar">
+            <!-- Chat reply notifications carry this click action, so a tap opens the chat. -->
+            <intent-filter>
+                <action android:name="HAILBELL_OPEN_CHAT" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <!-- Runs after androidx.startup (initOrder below its 0), so ProcessLifecycleOwner is ready. -->
+        <provider
+            android:name="com.hailbell.flutter.HailbellInitProvider"
+            android:authorities="${applicationId}.hailbell-init"
+            android:exported="false"
+            android:initOrder="-100" />
+    </application>
+</manifest>
