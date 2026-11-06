@@ -42,7 +42,7 @@ The step-by-step setup, including push with `firebase_messaging`, is in [GUIDE.m
 | `Hailbell.handleNotification(data)` | Opens the chat for a tapped reply's payload. The plugin already does this for its own notifications. |
 | `Hailbell.darkMode` | `null` (default) follows the phone. Set `true` for an always-dark app. |
 | `Hailbell.asksForNotifications` | Default `true`: after the first message, the chat offers to turn on notifications if they're off. |
-| `Hailbell.setTeamPhoto(bytes)` | A bundled photo for the chat header, so it shows at once and offline. |
+| `Hailbell.setTeamPhoto(bytes)` | Deprecated: set the photo in the dashboard. A bundled photo shows only until the chat hears from Hailbell, and never once the dashboard signs replies as the team, turns photos off or sets a photo for this app. |
 | `Hailbell.reset()` | On sign-out: clears the identity and the cached chat. |
 | `Hailbell.deleteData()` | Deletes the user's chat, images and details from Hailbell. Throws a `HailbellException` if the server can't be reached. |
 
@@ -62,12 +62,15 @@ The step-by-step setup, including push with `firebase_messaging`, is in [GUIDE.m
 
 ## Install
 
+```sh
+flutter pub add hailbell
+```
+
+or in `pubspec.yaml`:
+
 ```yaml
 dependencies:
-  hailbell:
-    git:
-      url: https://github.com/vidursaini/hailbell-flutter
-      ref: 1.0.0
+  hailbell: ^1.0.0
 ```
 
 ## How it's built

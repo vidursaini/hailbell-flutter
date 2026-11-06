@@ -15,7 +15,8 @@ class HailbellOpenChatActivity : Activity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (HailbellPlugin.dartConfigured) {
-            startActivity(Intent(this, ChatActivity::class.java))
+            // A chat already open behind this activity comes back to the front instead of a second one stacking.
+            startActivity(Intent(this, ChatActivity::class.java).addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT))
         } else {
             HailbellPlugin.pendingChatOpen = true
             packageManager.getLaunchIntentForPackage(packageName)?.let { startActivity(it.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)) }

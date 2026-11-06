@@ -6,6 +6,8 @@ The API reference is in [README.md](README.md). The dashboard, Discord, Telegram
 
 ## 1. Create the app in the dashboard
 
+Using a coding agent? With the [Hailbell skill](https://hailbell.com/docs#agents) and its MCP server connected, the agent makes the app and both platforms itself (step 2). You still sign up and upload the push keys (step 3).
+
 1. **Sign up** at [app.hailbell.com](https://app.hailbell.com/?signup=1) with **Continue with Google** or an emailed sign-in link. The first sign-in makes an account with a 14 day free trial, no card needed, and the first-run setup creates your first app from an App Store search.
 2. Give the app an **iOS** and an **Android** platform: on the app's page in **Settings**, use **Add iOS** or **Add Android** under **Platforms**. Each platform has its own **App ID** (`app_…`), and your app passes the one for the platform it runs on. App IDs are public, so they live in code. Set the iOS platform's **Bundle ID (for push)** under **Edit**.
 3. Upload your push keys in **Settings › Push keys**:
@@ -18,15 +20,18 @@ The API reference is in [README.md](README.md). The dashboard, Discord, Telegram
 
 ## 2. Add the package
 
-```yaml
-dependencies:
-  hailbell:
-    git:
-      url: https://github.com/vidursaini/hailbell-flutter
-      ref: 1.0.0
+```sh
+flutter pub add hailbell
 ```
 
-Pin `ref` to a release tag from [the releases list](https://github.com/vidursaini/hailbell-flutter/tags), and raise it to update.
+or in `pubspec.yaml`:
+
+```yaml
+dependencies:
+  hailbell: ^1.0.0
+```
+
+The package is [hailbell on pub.dev](https://pub.dev/packages/hailbell). Its source is https://github.com/vidursaini/hailbell-flutter.
 
 Requirements:
 
@@ -57,9 +62,6 @@ class HailbellSupport {
   static Future<void> configure() async {
     if (!isEnabled) return;
     await Hailbell.configure(appId: _appId);
-
-    final photo = await rootBundle.load('assets/support_photo.jpg');   // shows at once and offline
-    await Hailbell.setTeamPhoto(photo.buffer.asUint8List());
 
     await Hailbell.setPaywallPlacements(['winback', 'support_offer']);   // every placement an offer may open
     Hailbell.onPaywall = (placement, purchased) async {
@@ -96,6 +98,17 @@ Future<void> main() async {
 ```
 
 `Hailbell.open()` throws a `StateError` if `configure` hasn't run, so a missing setup shows up in development rather than as a blank chat.
+
+### Who customers see on replies
+
+The dashboard decides, per app, and your app can't change it: the SDK has no setting for the name or photo on replies, so an app can't sign as someone else. In the dashboard:
+
+- **Chat design › Replies are signed**: **By each teammate** (their name and photo) or **As the team** (the chat title, else "<App> Support", and no personal photo).
+- **Profile › In each app**: each teammate can use another name, their own photo or no photo in one app, and their profile everywhere else.
+
+Changes show the next time the chat opens, with no app release. Earlier replies keep the name they were sent with and show the current photo. Agents can read and change the same over MCP (`get_reply_identity`, `update_reply_identity`) and REST (`/v1/reply-identity`).
+
+``Hailbell.setTeamPhoto`` is deprecated. Upload the photo in the dashboard instead: the chat loads it from Hailbell and caches it, so it usually shows offline after the first load. A bundled photo now shows only until the chat first hears from Hailbell, and after that only while the dashboard has no photo of its own for this app. It never shows once the app signs replies as the team, turns photos off, or sets a photo (or no photo) for this app. The chat remembers the last answer, so an offline launch follows it too.
 
 ## 4. Entry points
 
@@ -245,7 +258,7 @@ If **Send test notification** in the customer panel says the device has no token
 You need this only for Hailbell's campaign pushes: images, buttons, badge increments and delivery receipts. Chat replies work without it.
 
 1. In Xcode, choose **File › New › Target › Notification Service Extension**. Name it `NotificationService` and set its **Minimum Deployments** to iOS 16.
-2. Choose **File › Add Package Dependencies…**, enter `https://github.com/vidursaini/hailbell-ios`, choose **Up to Next Major Version** from `1.1.1`, and add the **HailbellNotificationService** library to the extension only, never to Runner. This works in CocoaPods projects too.
+2. Choose **File › Add Package Dependencies…**, enter `https://github.com/vidursaini/hailbell-ios`, choose **Up to Next Major Version** from `1.1.4`, and add the **HailbellNotificationService** library to the extension only, never to Runner. This works in CocoaPods projects too.
 3. Replace the extension's class:
 
    ```swift

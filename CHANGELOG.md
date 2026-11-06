@@ -1,3 +1,9 @@
+## 1.0.1
+
+- The dashboard decides who customers see on replies. Each reply shows the photo of the teammate who wrote it in this app, and the header follows the app's chat design and each teammate's per-app photo.
+- `setTeamPhoto` is deprecated. A bundled photo shows only until the chat first hears from Hailbell, and never once the app signs replies as the team, turns photos off, or sets a photo (or no photo) for this app in the dashboard.
+- Native SDKs: iOS 1.1.4, Android 1.1.2.
+
 ## 1.0.0
 
 - Stable. Tested on the iOS simulator (Swift Package Manager and CocoaPods builds; chat, dark mode, and reply and campaign pushes with the app open, in the background and closed) and on the Android emulator.

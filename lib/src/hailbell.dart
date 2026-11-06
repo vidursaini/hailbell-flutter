@@ -215,13 +215,11 @@ class Hailbell {
     unawaited(_call('setAsksForNotifications', {'value': value}));
   }
 
-  /// A photo of the person who replies, as PNG or JPEG bytes bundled in your app, so the chat
-  /// header shows it at once and offline. Pass null to use the photo from the dashboard.
-  ///
-  /// ```dart
-  /// final photo = await rootBundle.load('assets/support_photo.jpg');
-  /// Hailbell.setTeamPhoto(photo.buffer.asUint8List());
-  /// ```
+  /// Deprecated: set the photo in the dashboard instead (Profile, per app), which you can change
+  /// without an app release. A photo bundled here (PNG or JPEG bytes) shows only until the chat
+  /// first hears from Hailbell, and after that only while the dashboard has no photo of its own for
+  /// this app. It never shows once the app signs replies as the team, turns photos off, or picks a
+  /// photo (or no photo) for this app. Pass null to drop it.
   static Future<void> setTeamPhoto(Uint8List? bytes) => _call('setTeamPhoto', {'bytes': bytes});
 
   // Internal
