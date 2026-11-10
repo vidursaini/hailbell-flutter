@@ -182,6 +182,19 @@ class HailbellPlugin : FlutterPlugin, MethodChannel.MethodCallHandler, ActivityA
                 Hailbell.darkMode = call.argument<Boolean>("value")
                 result.success(null)
             }
+            "trackScreen" -> {
+                Hailbell.trackScreen(call.argument<String>("name") ?: "")
+                result.success(null)
+            }
+            "reportBug" -> {
+                val activity = currentActivity ?: return result.error("no_activity", "The app has no activity on screen.", null)
+                Hailbell.reportBug(activity)
+                result.success(null)
+            }
+            "setShakeToReport" -> {
+                Hailbell.shakeToReport = call.argument<Boolean>("value") ?: false
+                result.success(null)
+            }
             "setAsksForNotifications" -> {
                 Hailbell.asksForNotifications = call.argument<Boolean>("value") ?: true
                 result.success(null)

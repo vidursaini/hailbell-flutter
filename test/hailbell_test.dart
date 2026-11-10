@@ -156,6 +156,15 @@ void main() {
       });
     });
 
+    test('bug report calls reach the native SDK', () async {
+      await Hailbell.trackScreen('Settings');
+      Hailbell.shakeToReport = true;
+      await pumpEventQueue();
+      expect(Hailbell.shakeToReport, true);
+      expect(argsOf('trackScreen'), {'name': 'Settings'});
+      expect(argsOf('setShakeToReport'), {'value': true});
+    });
+
     test('darkMode and asksForNotifications are kept and sent', () async {
       Hailbell.darkMode = true;
       Hailbell.asksForNotifications = false;

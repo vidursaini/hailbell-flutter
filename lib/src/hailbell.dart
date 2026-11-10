@@ -46,6 +46,7 @@ class Hailbell {
   static HailbellFirebaseTokenProvider? _firebaseIdToken;
   static bool? _darkMode;
   static bool _asksForNotifications = true;
+  static bool _shakeToReport = false;
   static final ValueNotifier<int> _unread = ValueNotifier<int>(0);
   static StreamSubscription<Object?>? _unreadSubscription;
   static final StreamController<int> _unreadChanges = StreamController<int>.broadcast();
@@ -122,6 +123,25 @@ class Hailbell {
   /// Records a signal such as `paywall_decline` or `chat_opened`, shown next to the chat.
   static Future<void> track(String event, {Map<String, String> properties = const {}}) =>
       _call('track', {'event': event, 'properties': properties});
+
+  /// The name of the screen the user is on, such as `Settings`. The last 10 are sent with a bug
+  /// report, so you can see how they got there. Nothing else is done with them.
+  static Future<void> trackScreen(String name) => _call('trackScreen', {'name': name});
+
+  /// Opens the bug report screen, for a "Report a problem" button. It takes a screenshot of the
+  /// current screen first, which the user can mark up or remove before sending. The report lands in
+  /// their chat, tagged as a bug report, with the app version, device, OS, locale and last screens.
+  static Future<void> reportBug() async {
+    if (!_configured) throw StateError('Call Hailbell.configure before Hailbell.reportBug.');
+    await _call('reportBug');
+  }
+
+  /// Shaking the device opens the bug report screen. Off by default.
+  static bool get shakeToReport => _shakeToReport;
+  static set shakeToReport(bool value) {
+    _shakeToReport = value;
+    unawaited(_call('setShakeToReport', {'value': value}));
+  }
 
   /// The paywall placements an offer can open, so you can pick them by name in the dashboard.
   static Future<void> setPaywallPlacements(List<String> placements) =>

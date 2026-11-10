@@ -86,6 +86,15 @@ public final class HailbellPlugin: NSObject, FlutterPlugin, FlutterStreamHandler
         case "track":
             Hailbell.track(args.string("event") ?? "", properties: args.stringMap("properties"))
             result(nil)
+        case "trackScreen":
+            Hailbell.trackScreen(args.string("name") ?? "")
+            result(nil)
+        case "reportBug":
+            Hailbell.reportBug()
+            result(nil)
+        case "setShakeToReport":
+            Hailbell.shakeToReport = args.bool("value") ?? false
+            result(nil)
         case "setPaywallPlacements":
             Hailbell.setPaywallPlacements(args.raw["placements"] as? [String] ?? [])
             result(nil)

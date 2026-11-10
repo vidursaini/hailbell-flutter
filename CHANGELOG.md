@@ -1,3 +1,8 @@
+## 1.0.3
+
+- Bug reports, off by default: `shakeToReport` opens a report screen on a shake, `reportBug()` opens it from your own button, and `trackScreen()` records the last 10 screens sent with each report. The report (a screenshot the user can mark up or remove, a description, app version, device, OS and locale) arrives in the user's chat, tagged as a bug report. Nothing runs and no sensor is used while it is off.
+- Native SDKs: iOS 1.1.5, Android 1.1.5.
+
 ## 1.0.2
 
 - Android: a review card's button opens the app's Play Store listing instead of Play's in-app review sheet, which Play can skip without telling the app, so a tap did nothing. Google's in-app review library is no longer a dependency.
