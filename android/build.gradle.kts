@@ -3,7 +3,7 @@ import org.jetbrains.kotlin.gradle.plugin.getKotlinPluginVersion
 // The Hailbell Flutter plugin for Android: the native SDK (vendor/hailbell, copied from sdk/android by
 // tool/sync_native.sh) plus the Flutter glue in src/main/kotlin.
 group = "com.hailbell.flutter"
-version = "1.0.1"
+version = "1.0.2"
 
 buildscript {
     val kotlinVersion = "2.4.0"
@@ -77,7 +77,6 @@ dependencies {
     implementation("io.coil-kt:coil-compose:2.7.0")
     implementation("com.squareup.okhttp3:okhttp:4.12.0")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.9.0")
-    implementation("com.google.android.play:review:2.0.2")
 
     testImplementation("junit:junit:4.13.2")
     testImplementation("org.json:json:20240303")

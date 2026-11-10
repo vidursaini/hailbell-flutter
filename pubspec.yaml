@@ -1,6 +1,6 @@
 name: hailbell
 description: In-app support chat and push notifications for Flutter apps on iOS and Android, using Hailbell's native SDKs.
-version: 1.0.1
+version: 1.0.2
 homepage: https://hailbell.com
 repository: https://github.com/vidursaini/hailbell-flutter
 issue_tracker: https://github.com/vidursaini/hailbell-flutter/issues

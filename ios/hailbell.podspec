@@ -2,7 +2,7 @@
 # hailbell/Sources/hailbell/Vendor is the native Swift SDK, copied from sdk/swift by tool/sync_native.sh.
 Pod::Spec.new do |s|
   s.name             = 'hailbell'
-  s.version          = '1.0.1'
+  s.version          = '1.0.2'
   s.summary          = 'In-app support chat and push notifications from Hailbell.'
   s.description      = <<-DESC
 The Hailbell chat screen and push notifications for Flutter apps, using Hailbell's native Swift SDK.

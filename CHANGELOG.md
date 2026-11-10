@@ -1,3 +1,8 @@
+## 1.0.2
+
+- Android: a review card's button opens the app's Play Store listing instead of Play's in-app review sheet, which Play can skip without telling the app, so a tap did nothing. Google's in-app review library is no longer a dependency.
+- Native SDKs: iOS 1.1.4, Android 1.1.3.
+
 ## 1.0.1
 
 - The dashboard decides who customers see on replies. Each reply shows the photo of the teammate who wrote it in this app, and the header follows the app's chat design and each teammate's per-app photo.
