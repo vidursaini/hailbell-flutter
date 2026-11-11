@@ -1,3 +1,8 @@
+## 1.0.4
+
+- Reply to one message: swipe a message to the right (or long-press and pick Reply) to answer it. The reply shows a quote of that message, and tapping the quote scrolls to the original. Messages from the team that quote one of the user's messages show the quote too. Nothing to set up.
+- Native SDKs: iOS 1.1.6, Android 1.1.6.
+
 ## 1.0.3
 
 - Bug reports, off by default: `shakeToReport` opens a report screen on a shake, `reportBug()` opens it from your own button, and `trackScreen()` records the last 10 screens sent with each report. The report (a screenshot the user can mark up or remove, a description, app version, device, OS and locale) arrives in the user's chat, tagged as a bug report. Nothing runs and no sensor is used while it is off.
